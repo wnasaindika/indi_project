@@ -1,1 +1,1 @@
-# indi_project
+# React Native Sample Projects  
