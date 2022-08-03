@@ -1,17 +1,54 @@
-import React from 'react';
-import { StyleSheet, TextInput, View } from "react-native"
+import React, { useState } from 'react';
+import { Alert, StyleSheet, TextInput, View } from "react-native"
 import PrimaryButton from "../componenet/PrimaryButton";
 
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
+
+    const [inputNumber, setInputNumber] = useState('');
+
+    function nummberInputHandler(entredText) {
+        setInputNumber(entredText);
+    }
+
+    function resetInputNumber() {
+        setInputNumber('');
+    }
+
+    function confirmInputHandler() {
+        const choosenNumber = parseInt(inputNumber);
+        if (isNaN(choosenNumber) || choosenNumber <= 0 || choosenNumber > 99) {
+
+            Alert.alert(
+                'Invalid Number!',
+                'Number has to be 0 and 100',
+                [{
+                    text: 'Okay',
+                    style: 'destructive',
+                    onPress: resetInputNumber
+                }
+                ]
+            );
+            return;
+
+        }
+        onPickNumber(choosenNumber)
+    }
+
     return (
         <View style={styles.inputContainer}>
-            <TextInput style={styles.numberInput} keyboardType= {'number-pad'} />
+            <TextInput
+                style={styles.numberInput}
+                keyboardType={'number-pad'}
+                maxLength={2}
+                value={inputNumber}
+                onChangeText={nummberInputHandler}
+            />
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Reset</PrimaryButton>
+                    <PrimaryButton onPress={resetInputNumber}>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Confirm</PrimaryButton>
+                    <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
                 </View>
             </View>
 
@@ -26,7 +63,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginHorizontal: 20,
         elevation: 4,
-        backgroundColor: '#4e0329',
+        backgroundColor: '#3b021f',
         borderRadius: 8,
         padding: 16,
         shadowColor: 'black',
