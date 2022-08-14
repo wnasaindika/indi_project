@@ -30,6 +30,11 @@ function GameScreen({ userNumber, onGameOver }) {
         }
     }, [currentGuess, userNumber, onGameOver]);
 
+    useEffect(() => {
+        minBoundry = 1;
+        maxBoundry = 100;
+    }, []);
+
     function nextGussHandler(direction) {
 
         if (
@@ -55,7 +60,7 @@ function GameScreen({ userNumber, onGameOver }) {
             <Title>Opponenet Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card>
-                <InstructionText style={ styles.instructionText}>Higher or Lower?</InstructionText>
+                <InstructionText style={styles.instructionText}>Higher or Lower?</InstructionText>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonContainer}>
                         <PrimaryButton onPress={nextGussHandler.bind(this, 'lower')}>-</PrimaryButton>

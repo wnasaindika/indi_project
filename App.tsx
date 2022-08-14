@@ -15,6 +15,7 @@ const App = () => {
 
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [roundNumber, setRoundNumber] = useState(0);
 
   function pickNumberHandler(pickNumber) {
     setUserNumber(pickNumber);
@@ -25,14 +26,19 @@ const App = () => {
     setGameIsOver(true);
   }
 
+  function onStartNewGameHandler() {
+    setUserNumber(null);
+    setRoundNumber(0);
+  }
+
   let screen = <StartGameScreen onPickNumber={pickNumberHandler} />
   if (userNumber) {
     screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />
-  }
+    screen = <GameOverScreen userNumber={userNumber} roundNumber={roundNumber} onStartNewGame={onStartNewGameHandler} />
+  } 
 
   return (
     <LinearGradient
