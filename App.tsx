@@ -22,8 +22,9 @@ const App = () => {
     setGameIsOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(guessRoundNumber) {
     setGameIsOver(true);
+    setRoundNumber(guessRoundNumber);
   }
 
   function onStartNewGameHandler() {
@@ -38,7 +39,7 @@ const App = () => {
 
   if (gameIsOver && userNumber) {
     screen = <GameOverScreen userNumber={userNumber} roundNumber={roundNumber} onStartNewGame={onStartNewGameHandler} />
-  } 
+  }
 
   return (
     <LinearGradient
